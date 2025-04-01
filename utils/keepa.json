@@ -1,0 +1,37 @@
+{
+    "domain": {
+        "3": {
+            "locale": "de",
+            "currency": "€",
+            "flagEmoji": "🇩🇪"
+        },
+        "4": {
+            "locale": "fr",
+            "currency": "€",
+            "flagEmoji": "🇫🇷"
+        },
+        "8": {
+            "locale": "it",
+            "currency": "€",
+            "flagEmoji": "🇮🇹"
+        },
+        "9": {
+            "locale": "es",
+            "currency": "€",
+            "flagEmoji": "🇪🇸"
+        }
+    },
+    "priceTypesMap": {
+        "0": "Amazon",
+        "1": "New",
+        "18": "Buy Box"
+    },
+    "priceTypesAccesor": {
+        "0": "amazonStat",
+        "1": "newStat",
+        "18": "buyBoxStat"
+    },
+    "config" : {
+        "mainDomainId": "4"
+    }
+}
