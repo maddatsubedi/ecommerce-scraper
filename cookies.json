@@ -1,0 +1,47 @@
+{
+  "version": "tough-cookie@5.1.2",
+  "storeType": "MemoryCookieStore",
+  "rejectPublicSuffixes": true,
+  "enableLooseMode": false,
+  "allowSpecialUseDomain": true,
+  "prefixSecurity": "silent",
+  "cookies": [
+    {
+      "key": "datadome",
+      "value": "tgJOtTYd~B9D3gjaeI5XeArENko0Tt0KFRA0~A51LSeAZ3V3xwUX4dm7VnF~W2QcD2LB0BUa3ihV9SaETmhl9Ow8seuLOHNH5h96o15c4r7tMUAmohMLKSwiGOjCwbXR",
+      "maxAge": 31536000,
+      "domain": "king-jouet.com",
+      "path": "/",
+      "secure": true,
+      "hostOnly": false,
+      "creation": "2025-04-25T07:26:41.042Z",
+      "lastAccessed": "2025-04-25T15:28:22.221Z",
+      "sameSite": "lax"
+    },
+    {
+      "key": "frz-referrer",
+      "value": "https://www.king-jouet.com/jeux-jouets/promotions/page1.htm",
+      "domain": "www.king-jouet.com",
+      "path": "/jeux-jouets/promotions",
+      "secure": true,
+      "httpOnly": true,
+      "hostOnly": true,
+      "pathIsDefault": true,
+      "creation": "2025-04-25T07:27:25.899Z",
+      "lastAccessed": "2025-04-25T15:28:22.223Z"
+    },
+    {
+      "key": "frz_referrer_unique_id",
+      "value": "Ran9fMTyfpFs1rb36NwicaQObivvEx7TrUTVn-u0kusmUtvF3_BAAg==",
+      "maxAge": 20,
+      "domain": "www.king-jouet.com",
+      "path": "/jeux-jouets/promotions",
+      "secure": true,
+      "httpOnly": true,
+      "hostOnly": true,
+      "pathIsDefault": true,
+      "creation": "2025-04-25T15:28:22.223Z",
+      "lastAccessed": "2025-04-25T15:28:22.223Z"
+    }
+  ]
+}

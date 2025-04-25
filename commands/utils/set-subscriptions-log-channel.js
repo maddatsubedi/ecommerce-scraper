@@ -2,6 +2,7 @@ const { SlashCommandBuilder, EmbedBuilder, ChannelType } = require('discord.js')
 const { simpleEmbed } = require('../../embeds/generalEmbeds');
 const { addBulkSubscriptionRoles } = require('../../database/models/subscriptionRoles');
 const { setGuildConfig } = require('../../database/models/guildConfig');
+const { logTypesChannelMap } = require('../../utils/dbUtils.json');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -17,7 +18,7 @@ module.exports = {
         const guildId = interaction.guild.id;
         const channelId = interaction.options.getChannel('channel').id;
 
-        setGuildConfig(guildId, 'subscriptions_log_channel_id', channelId);
+        setGuildConfig(guildId, logTypesChannelMap.subscription, channelId);
 
         const embed = simpleEmbed({footer: `${interaction.guild.name} | Config`, title: 'Subscription Log Channel Changed', color:'Random'}).addFields(
             { name: 'New Channel', value: `> <#${channelId}>` },

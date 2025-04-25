@@ -1,0 +1,10 @@
+{
+    "name": "King Jouet",
+    "baseUrl": "https://www.king-jouet.com",
+    "promotionUrl": "jeux-jouets/promotions",
+    "selectors": {
+        "productSection": "div.ais-Hits-list.list-articles.grid.grid-cols-2.md\\:grid-cols-3.gap-1.xl\\:grid-cols-4.2xl\\:grid-cols-5.2xl\\:gap-4",
+        "productElement": "div[data-ekind=\"Product\"]",
+        "productHiddenInput": "input[type=\"hidden\"]"
+    }
+}

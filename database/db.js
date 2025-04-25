@@ -13,27 +13,40 @@ const pool = new Pool({
 });
 
 // Verify connection on startup
-(async () => {
+const verifyDbConnection = async () => {
     try {
-        await pool.query('SELECT NOW()');
+        const dbResponse = await pool.query('SELECT NOW()');
         console.log('PostgreSQL connected successfully');
+        return {
+            success: true,
+            data: {
+                dbResponse: dbResponse,
+            }
+        }
     } catch (error) {
+        let errorMessage;
         if (error.code === '3D000') {
             const dbName = process.env.PG_DATABASE;
+            errorMessage = `Database does not exist: ${dbName}`;
             console.log(`Error: Database does not exist. Please create the database before running the bot.\nCode: DB_NOT_FOUND | Database: ${dbName}`);
         } else {
+            errorMessage = `PostgreSQL connection error: ${error.message}`;
             console.log('PostgreSQL connection error:', error);
         }
-        process.exit(1); // Exit process with failure
+
+        return {
+            success: false,
+            errorType: "ERROR:EXCEPTION",
+            errorCode: "DB_CONNECTION_ERROR",
+            message: errorMessage,
+            error: error,
+        }
     }
-})();
+};
 
 const query = async (text, params) => {
     try {
         const res = await pool.query(text, params);
-        // console.log("============ DB QUERY ============");
-        // console.log(res);
-        // console.log("==================================");
         return {
             success: true,
             data: {
@@ -44,16 +57,15 @@ const query = async (text, params) => {
         console.error('Error executing query', error);
         return {
             success: false,
-            data: {
-                errorType: "ERROR:EXCEPTION",
-                errorCode: "DB_QUERY_ERROR",
-                error: error,
-            }
+            errorType: "ERROR:EXCEPTION",
+            errorCode: "DB_QUERY_ERROR",
+            error: error,
         }
     }
 }
 
 module.exports = {
+    verifyDbConnection,
     query,
     pool,
 };

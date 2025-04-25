@@ -1,0 +1,9 @@
+http://zpkywxlg:wl44a54li64f@86.38.234.176:6630 no, yes, yes, yes
+http://zpkywxlg:wl44a54li64f@216.10.27.159:6837, yes, yes, no
+http://zpkywxlg:wl44a54li64f@161.123.152.115:6360, yes, no
+http://zpkywxlg:wl44a54li64f@185.199.229.156:7492 no, cap, no, no, yes
+http://zpkywxlg:wl44a54li64f@185.199.228.220:7300, no, no
+http://zpkywxlg:wl44a54li64f@38.154.227.167:5868, no, no, no
+http://zpkywxlg:wl44a54li64f@173.211.0.148:6641, no, no, no, yes, no, yes
+http://zpkywxlg:wl44a54li64f@38.153.152.244:9594, no, no
+http://zpkywxlg:wl44a54li64f@154.36.110.199:6853, no, no, no, no

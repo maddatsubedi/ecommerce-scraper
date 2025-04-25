@@ -1,6 +1,7 @@
 {
     "logTypesChannelMap": {
         "subscription": "subscriptions_log_channel_id",
-        "error": "errors_log_channel_id"
+        "error": "errors_log_channel_id",
+        "default": "default_log_channel_id"
     }
 }

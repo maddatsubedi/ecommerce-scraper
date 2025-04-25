@@ -163,7 +163,7 @@ const log = async (message, guildId, client, type) => {
             return;
         }
 
-        const logChannelId = getGuildConfig(guildId, logChannelAccessor);
+        const logChannelId = await getGuildConfig(guildId, logChannelAccessor);
 
         if (!logChannelId) {
             console.log(`Log channel not found for type: ${type}`);
