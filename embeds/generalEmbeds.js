@@ -1,14 +1,14 @@
 const { EmbedBuilder } = require('discord.js');
 const { getAvailabeLocales } = require('../utils/helpers');
 
-const simpleEmbed = ({ title, color, description, setTimestamp, footer, setFooterImage }) => {
+const simpleEmbed = ({ title, color, description, setTimestamp, footer, footerIcon }) => {
 	const embed = new EmbedBuilder()
 
 	if (title) embed.setTitle(title);
 	if (color) embed.setColor(color);
 	if (description) embed.setDescription(description);
 	if (setTimestamp) embed.setTimestamp();
-	if (footer) embed.setFooter({ text: footer, iconURL: setFooterImage ? 'https://i.imgur.com/AfFp7pu.png' : null });
+	if (footer) embed.setFooter({ text: footer, iconURL: footerIcon ? footerIcon : null });
 
 	return embed;
 }

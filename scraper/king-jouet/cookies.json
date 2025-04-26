@@ -8,19 +8,19 @@
   "cookies": [
     {
       "key": "datadome",
-      "value": "UptYkt5rmlnMO~vAOOW49Z6kegyStmFLmnplBkFnnkDF~HclWGLJp8d0C7gHqtc4PNPEnGufg718kbViRQ069YMP4hfcLD0LQjt8OrXk04l6lAJUcairHQHemjmVY2Pd",
+      "value": "y~hmczGiojgtbDCOlSTuTvUbxCbTs0wH4q5wLKn5x73P6xWIlYOfoR10tLHoIcrTyg99M0pu0ccZrW8hQlxss8EwOrZlk6QRvShdUnRYOMGvcPpZqi73uJ7akefbn8Ad",
       "maxAge": 31536000,
       "domain": "king-jouet.com",
       "path": "/",
       "secure": true,
       "hostOnly": false,
       "creation": "2025-04-25T07:26:41.042Z",
-      "lastAccessed": "2025-04-25T18:17:00.113Z",
+      "lastAccessed": "2025-04-26T18:13:16.485Z",
       "sameSite": "lax"
     },
     {
       "key": "frz-referrer",
-      "value": "https://www.king-jouet.com/jeux-jouets/promotions/page1.htm",
+      "value": "https://www.king-jouet.com/jeux-jouets/promotions/page17.htm",
       "domain": "www.king-jouet.com",
       "path": "/jeux-jouets/promotions",
       "secure": true,
@@ -28,11 +28,11 @@
       "hostOnly": true,
       "pathIsDefault": true,
       "creation": "2025-04-25T07:27:25.899Z",
-      "lastAccessed": "2025-04-25T18:17:00.115Z"
+      "lastAccessed": "2025-04-26T18:13:16.487Z"
     },
     {
       "key": "frz_referrer_unique_id",
-      "value": "b7i7-s12PJNyIhmq41RWRt4IlOoWKHOUBLdGvxeeE17_8sAgu0tuug==",
+      "value": "8DzsZ219gZljv5OwPXwWMMmnpktBNZsZs9Zmx5A7Ez7sNUAXnSmzJg==",
       "maxAge": 20,
       "domain": "www.king-jouet.com",
       "path": "/jeux-jouets/promotions",
@@ -40,8 +40,8 @@
       "httpOnly": true,
       "hostOnly": true,
       "pathIsDefault": true,
-      "creation": "2025-04-25T18:17:00.115Z",
-      "lastAccessed": "2025-04-25T18:17:00.115Z"
+      "creation": "2025-04-26T18:13:16.487Z",
+      "lastAccessed": "2025-04-26T18:13:16.487Z"
     }
   ]
 }

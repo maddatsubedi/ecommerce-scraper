@@ -3,6 +3,7 @@ const fs = require('fs');
 const { HttpCookieAgent, HttpsCookieAgent } = require('http-cookie-agent/http');
 const { HttpsProxyAgent } = require('https-proxy-agent');
 const { CookieJar } = require('tough-cookie');
+const { getConfig, setConfig } = require('../database/models/config');
 require('dotenv').config()
 
 const PROXY_USER = process.env.PROXY_USER;
@@ -55,9 +56,25 @@ function saveJar(cookieJar, cookieFile) {
     fs.writeFileSync(cookieFile, JSON.stringify(serialized, null, 2));
 }
 
+const disableGlobalScraping = async () => {
+    return await setConfig('global_scraping', '0');
+};
+
+const enableGlobalScraping = async () => {
+    return await setConfig('global_scraping', '1');
+}
+
+const isGlobalScrapingEnabled = async () => {
+    const configValue = await getConfig('global_scraping');
+    return configValue === '1' ? true : configValue === '0' ? false : configValue;
+}
+
 module.exports = {
     proxyAgent,
     getCookieJar,
     getClient,
     saveJar,
+    disableGlobalScraping,
+    enableGlobalScraping,
+    isGlobalScrapingEnabled
 };

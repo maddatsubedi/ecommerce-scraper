@@ -1,6 +1,8 @@
 const path = require('path');
 const UserAgent = require('user-agents');
 const { getCookieJar, getClient, saveJar } = require('../utils');
+const { setSiteHeaders, getSiteHeaders } = require('../../database/models/siteHeaders');
+const { setSiteConfig, getSiteConfig } = require('../../database/models/siteConfig');
 
 function slugify_kingJouet(text = '') {
     return text
@@ -41,15 +43,13 @@ function saveJar_kingJouet(cookieJar) {
     saveJar(cookieJar, KING_JOUET_COOKIE_FILE);
 }
 
-function getRequestHeaders_kingJouet() {
+async function getRequestHeaders_kingJouet(userAgent) {
     return {
         'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
         'accept-language': 'en-US,en;q=0.9',
         'cache-control': 'max-age=0',
-        'if-modified-since': 'Thu, 24 Apr 2025 17:31:38 GMT',
-        'if-none-match': 'W/"67815-REG4YyHea3AktptAS164TvxLphI"',
         'priority': 'u=0, i',
-        'referer': 'https://www.king-jouet.com/jeux-jouets/promotions/page1.htm',
+        'referer': 'https://www.king-jouet.com/',
         'sec-ch-device-memory': '8',
         'sec-ch-ua': '"Google Chrome";v="135", "Not-A.Brand";v="8", "Chromium";v="135"',
         'sec-ch-ua-platform': '"Windows"',
@@ -58,9 +58,65 @@ function getRequestHeaders_kingJouet() {
         'sec-fetch-site': 'same-origin',
         'sec-fetch-user': '?1',
         'upgrade-insecure-requests': '1',
-        // 'user-agent': new UserAgent({ deviceCategory: 'desktop' }).toString(),
-        'user-agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36",
+        'user-agent': userAgent || await getUserAgent_kingJouet(),
     };
+}
+
+function refreshUserAgent_kingJouet(headers) {
+    const userAgent = new UserAgent({ deviceCategory: 'desktop' }).toString();
+    headers['user-agent'] = userAgent;
+    return headers;
+}
+
+async function getUserAgent_kingJouet() {
+    const userAgentDb = await getSiteConfig('king-jouet', 'user_agent');
+    return userAgentDb || new UserAgent({ deviceCategory: 'desktop' }).toString();
+}
+
+async function setUserAgent_kingJouet(userAgent) {
+    return await setSiteConfig('king-jouet', 'user_agent', userAgent);
+}
+
+async function refreshUserAgent_kingJouet() {
+    const userAgent = new UserAgent({ deviceCategory: 'desktop' }).toString();
+    const dbSuccess = await setUserAgent_kingJouet(userAgent);
+    return {
+        dbSuccess,
+        userAgent,
+    };
+}
+
+async function getSiteHeaders_kingJouet(pageUrl, referrer, userAgent) {
+    const headers = await getSiteHeaders('king-jouet', pageUrl) || await getRequestHeaders_kingJouet(userAgent);
+    if (referrer) {
+        headers['referer'] = referrer;
+    }
+    if (userAgent) {
+        headers['user-agent'] = userAgent;
+    }
+    return headers;
+}
+
+async function updateSiteHeaders_kingJouet(headers, resHeaders, pageUrl, referrer, userAgent) {
+    const eTag = resHeaders?.['etag'];
+    const lastModified = resHeaders?.['last-modified'];
+    headers['if-none-match'] = eTag || headers['if-none-match'];
+    headers['if-modified-since'] = lastModified || headers['if-modified-since'];
+
+    if (referrer) {
+        headers['referer'] = referrer;
+    }
+
+    if (userAgent) {
+        headers['user-agent'] = userAgent;
+    }
+
+    const dbSuccess =  await setSiteHeaders('king-joutet', pageUrl, headers);
+
+    return {
+        dbSuccess,
+        headers,
+    }
 }
 
 module.exports = {
@@ -70,4 +126,9 @@ module.exports = {
     saveJar_kingJouet,
     getCookieJar_kingJouet,
     getRequestHeaders_kingJouet,
+    refreshUserAgent_kingJouet,
+    updateSiteHeaders_kingJouet,
+    getSiteHeaders_kingJouet,
+    getUserAgent_kingJouet,
+    setUserAgent_kingJouet,
 };

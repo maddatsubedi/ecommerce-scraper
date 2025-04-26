@@ -6,7 +6,7 @@ const createSiteHeadersTable = async () => {
             id SERIAL PRIMARY KEY,
             site TEXT NOT NULL,
             path TEXT NOT NULL,
-            headers JSONB NOT NULL,
+            value JSONB NOT NULL,
             created_at TIMESTAMPTZ DEFAULT NOW() NOT NULL,
             updated_at TIMESTAMPTZ DEFAULT NOW() NOT NULL,
             UNIQUE (site, path)
@@ -51,43 +51,43 @@ const createSiteHeadersTable = async () => {
     return true;
 };
 
-const setSiteHeaders = async (site, key, value) => {
+const setSiteHeaders = async (site, path, value) => {
     const queryText = `
-        INSERT INTO siteheaders (site, key, value)
+        INSERT INTO siteheaders (site, path, value)
         VALUES ($1, $2, $3)
-        ON CONFLICT (site, key)
+        ON CONFLICT (site, path)
         DO UPDATE SET value = EXCLUDED.value;
     `;
-    const res = await db.query(queryText, [site, key, value]);
+    const res = await db.query(queryText, [site, path, value]);
     return res.success ? true : false;
 };
 
-const getSiteHeaders = async (site, key) => {
+const getSiteHeaders = async (site, path) => {
     const queryText = `
-        SELECT value FROM siteheaders WHERE site = $1 AND key = $2;
+        SELECT value FROM siteheaders WHERE site = $1 AND path = $2;
     `;
-    const res = await db.query(queryText, [site, key]);
+    const res = await db.query(queryText, [site, path]);
     return res.success ? res.data.dbResponse.rows[0]?.value : false;
 };
 
 const getAllSiteHeaderss = async (site) => {
     const queryText = `
-        SELECT key, value FROM siteheaders WHERE site = $1;
+        SELECT path, value FROM siteheaders WHERE site = $1;
     `;
     const res = await db.query(queryText, [site]);
     return res.success ? res.data.dbResponse.rows : false;
 };
 
-const unsetSiteHeaders = async (site, key) => {
-    const res = await setSiteHeaders(site, key, null);
+const unsetSiteHeaders = async (site, path) => {
+    const res = await setSiteHeaders(site, path, null);
     return res ? true : res === false ? false : true;
 };
 
-const deleteSiteHeaders = async (site, key) => {
+const deleteSiteHeaders = async (site, path) => {
     const queryText = `
-        DELETE FROM siteheaders WHERE site = $1 AND key = $2;
+        DELETE FROM siteheaders WHERE site = $1 AND path = $2;
     `;
-    const res = await db.query(queryText, [site, key]);
+    const res = await db.query(queryText, [site, path]);
     return res.success ? true : false;
 };
 
@@ -99,8 +99,8 @@ const resetSiteHeaders = async (site) => {
     return res.success ? true : false;
 };
 
-const addMultiValueSiteHeaders = async (site, key, value, separator) => {
-    const existingValue = await getSiteHeaders(site, key);
+const addMultiValueSiteHeaders = async (site, path, value, separator) => {
+    const existingValue = await getSiteHeaders(site, path);
     if (existingValue === false) return false;
     let existingValuesArray = existingValue
         ? existingValue.split(separator).map(val => val.trim()).filter(Boolean)
@@ -110,20 +110,20 @@ const addMultiValueSiteHeaders = async (site, key, value, separator) => {
     }
     existingValuesArray.push(value);
     const newValue = existingValuesArray.join(separator);
-    const res = await setSiteHeaders(site, key, newValue);
+    const res = await setSiteHeaders(site, path, newValue);
     return res ? true : res === false ? false : true;
 };
 
-const getMultiValueSiteHeaders = async (site, key, separator) => {
-    const existingValue = await getSiteHeaders(site, key);
+const getMultiValueSiteHeaders = async (site, path, separator) => {
+    const existingValue = await getSiteHeaders(site, path);
     if (existingValue === false) return false;
     return existingValue
         ? existingValue.split(separator).map(val => val.trim()).filter(Boolean)
         : [];
 };
 
-const removeMultiValueSiteHeaders = async (site, key, value, separator) => {
-    const existingValue = await getSiteHeaders(site, key);
+const removeMultiValueSiteHeaders = async (site, path, value, separator) => {
+    const existingValue = await getSiteHeaders(site, path);
     if (existingValue === false) return false;
     let existingValuesArray = existingValue
         ? existingValue.split(separator).map(val => val.trim()).filter(Boolean)
@@ -132,7 +132,7 @@ const removeMultiValueSiteHeaders = async (site, key, value, separator) => {
         return false;
     }
     const newValue = existingValuesArray.filter(val => val !== value).join(separator);
-    const res = await setSiteHeaders(site, key, newValue || null);
+    const res = await setSiteHeaders(site, path, newValue || null);
     return res ? true : res === false ? false : true;
 };
 

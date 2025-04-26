@@ -1,0 +1,9 @@
+{
+    "ignore": [
+        "logs/*",
+        "uploads/*",
+        ".env",
+        ".git",
+        "cookies.json"
+    ]
+}
